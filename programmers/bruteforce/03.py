@@ -1,7 +1,6 @@
 def solution(brown, yellow):
     answer = []
     sum = brown + yellow
-    x = sum
 
     temp = []
     # while (x >= y):
@@ -10,8 +9,8 @@ def solution(brown, yellow):
             y = sum/i
             if (i >= y) and (i-2)*(y-2) == yellow:
                 temp.append([i, int(y)])
-    print(temp[-1])
-    # return temp[-1]
+    # print(temp[-1])
+    return temp[-1]
 
 
 solution(50, 22)
