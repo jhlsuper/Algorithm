@@ -6,7 +6,7 @@ def solution(bridge_length, weight, truck_weights):
     while list:
         answer += 1
         list.pop(0)
-        print(list)
+        # print(list)
         if truck_weights:
             if sum(list) + truck_weights[0] <= weight:
                 list.append(truck_weights.pop(0))
