@@ -3,7 +3,7 @@ def solution(name):
     length = len(name)
     A_list = ['A']*length
     name_list = list(name)
-    
+    index =0
     while A_list !=name_list:
         for i in range(length):
             if 65<ord(name_list[i])<78 :
@@ -13,13 +13,29 @@ def solution(name):
             elif 78<=ord(name_list[i])<91:
                 A_list[i]= name_list[i]
                 answer+=91-ord(name[i])
-            answer+=1
+    right =1
+    left = 1
+    for i in range(1,length):
+        if name[index-i]=="A":
+            left+=1
+        else:
+            break
+        if right>left:
+            answer+=left
+            index-=left
+        else:
+            answer+=right
+            index+=right
+        
+        
+    
+ 
     print(A_list)
     print(answer)
     
     
     
-    return answer-1
+    return answer
 
 solution("JEROEN")
 
