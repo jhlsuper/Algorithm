@@ -1,28 +1,15 @@
 def solution(people, limit):
-    answer = 0
-    new_limit = limit
-    count = 0
-    people.sort()
-    while len(people) > 0:
+    answer = len(people)
 
-        while new_limit > 0:
-            if count == 2:
-                break
-            if len(people) == 1:
-                people.remove(people[0])
-
-                answer += 1
-                break
-            new_limit -= min(people)
-            if new_limit >= 0:
-                people.pop()
-                count += 1
-        print(count)
-        print(people)
-        answer += 1
-        count = 0
-        new_limit = limit
-
+    new_people = sorted(people, reverse=True)
+    i = 0
+    j = len(new_people) - 1
+    print(new_people)
+    while i< j:
+        if new_people[i] + new_people[j] <= limit:
+            j -= 1
+            answer -= 1
+        i += 1
     return answer
 
 
