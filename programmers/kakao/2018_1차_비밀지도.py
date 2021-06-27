@@ -3,7 +3,7 @@ def solution(n, arr1, arr2):
 
     for i, j in zip(arr1, arr2):
         binary = str(bin(i | j)[2:])
-        binary = binary.rjust(n, '0')
+        binary = binary.zfill(n)
         binary = binary.replace("1", '#')
         binary = binary.replace('0', ' ')
         answer.append(binary)
