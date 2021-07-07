@@ -9,7 +9,7 @@ def solution(m, musicinfos):
         # print(note)
 
         if len(note) < time[i]:
-            note *= time[i] // len(note)
+            note *= (time[i] // len(note))
 
         else:
             if m in note[len(time)]:
@@ -21,7 +21,7 @@ def solution(m, musicinfos):
         answer = '(None)'
     else:
         answer = sorted_answer_list[-1][0]
-    # print(answer)
+    print(answer)
     return answer
 
 
