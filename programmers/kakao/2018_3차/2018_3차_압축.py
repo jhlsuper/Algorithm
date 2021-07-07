@@ -1,36 +1,21 @@
 def solution(msg):
-    ascii_list = []
     answer = []
-    ascii_list.append('0')
-    msg_list = list(msg)
-    print(msg_list)
+    dict = {}
 
-    for i in range(1, 26):
-        ascii_list.append(chr(i + 64))
-    print(ascii_list)
-    for i in range(len(msg)):
-        j = 0
-        if msg_list[i] != '0':
-            while msg_list[i:i + j + 1] in ascii_list:
-                j += 1
-                print(msg_list[i:i + j])
-            if msg_list[i:i + j + 2] not in ascii_list:
-                ascii_list.append(msg_list[i:i + j + 2])
-                print(msg_list)
-                for z in range(j):
-                    msg[i + j] = '0'
-
-            # if msg_list[i:i + 2] not in ascii_list and msg_list[i] in ascii_list:
-            #     ascii_list.append(msg[i:i + 2])
-            #     answer.append(ascii_list.index(msg_list[i]))
-            #     msg_list[i] = '0'
-            # if msg_list[i:i + 2] in ascii_list:
-            #     answer.append(ascii_list.index(msg_list[i:i + 2]))
-            #     ascii_list.append(msg_list[i:i + 3])
-
-    print(ascii_list)
-    print(answer)
+    for i in range(26):
+        dict[chr(65+i)] = i+1
+    w, c = 0, 0
+    while True:
+        c += 1
+        if c == len(msg):
+            answer.append(dict[msg[w:c]])
+            break
+        if msg[w:c+1] not in dict:
+            dict[msg[w:c+1]] = len(dict)+1
+            answer.append(dict[msg[w:c]])
+            w = c
     return answer
 
 
+# TODO 3차 압축 문제 다시 풀자.
 solution("KAKAO")
