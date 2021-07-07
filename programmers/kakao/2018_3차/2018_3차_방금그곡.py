@@ -6,7 +6,7 @@ def solution(m, musicinfos):
     for i in range(len(musicinfos)):
         note = musicinfos[i].split(",")[-1]
         name = musicinfos[i].split(",")[2]
-        # print(note)
+        print(note)
 
         if len(note) < time[i]:
             note *= (time[i] // len(note))
@@ -25,4 +25,4 @@ def solution(m, musicinfos):
     return answer
 
 
-solution("ABC", ["12:00,12:14,HELLO,C#DEFGAB", "13:00,13:05,WORLD,ABCDEF"])
+solution("CC#BCC#BCC#BCC#B",	["03:00,03:30,FOO,CC#B", "04:00,04:08,BAR,CC#BCC#BCC#B"])
