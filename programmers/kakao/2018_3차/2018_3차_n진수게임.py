@@ -5,7 +5,7 @@ tmp = string.digits + string.ascii_lowercase
 
 def solution(n, t, m, p):
     ## n: 진법 t: 미리 구할 숫자의 갯수 , m 게임에 참가하는 인원, p 튜브의 순서
-    number_list = []
+
     answer = ''
     temp = []
     last_num = (t - 1) * m + p
