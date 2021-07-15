@@ -2,44 +2,68 @@ def decode(codes, encoded):
     dic = {}
     code_len = len(codes[0].split()[1])
     encoded_len = len(str(encoded))
-    temp = 0
+
+    temp = 1
+    index = 0
     temp_str = ""
 
     for i in codes:
         # print(i.split())
 
         if len(i.split()) == 1:
-            dic[''] = i.split()[0]
+
+            dic['00000'] = ''
         else:
             # print(i.split()[0])
             dic[i.split()[1]] = i.split()[0]
-    print(dic)
-    for i in range(code_len, encoded_len + code_len, code_len):
 
-        encoded_str = str(encoded)[temp:i]
-        possible_t = str(encoded)[temp:(i - 1)]
+    # print(dic)
+    for i in range(encoded_len):
+
+        encoded_str = str(encoded)[index:(index + temp)]
         # print(encoded_str)
-        # print(possible_t)
-
-        if possible_t == '00000':
-            temp_str += ''
-            temp += code_len - 1
-        else:
-
-            if dic[encoded_str] == '[newline]':
-                # print(temp_str)
-                # temp_str = ''
-                temp_str += "\n"
+        # print(index, temp)
+        if encoded_str in dic:
+            if dic[encoded_str]=="[newline]":
+                temp_str+='\n'
             else:
                 temp_str += dic[encoded_str]
+            index = index + temp
+            temp = 1
+        else:
+            temp += 1
 
-            temp += code_len
-    # if temp_str:
-    # print(temp_str)
     # print(temp_str)
     return temp_str
 
 
+# def decode(codes, encoded):
+#     print(codes,encoded)
+#     dic = {}
+#     code_len = len(codes[0].split()[1])
+#     encoded_len = len(str(encoded))
+#     temp = 0
+#     temp_str = ""
+#     for i in codes:
+#         # print(i.split())
+#
+#         dic[i.split()[1]] = i.split()[0]
+#     # print(dic)
+#     for i in range(code_len, encoded_len + code_len, code_len):
+#         encoded_str = str(encoded)[temp:i]
+#         if dic[encoded_str] == '[newline]':
+#             # print(temp_str)
+#             # temp_str = ''
+#             temp_str += "\n"
+#         else:
+#             temp_str += dic[encoded_str]
+#
+#         # print(str(encoded)[temp:i])
+#         temp += code_len
+#     # if temp_str:
+#         # print(temp_str)
+#     # print(temp_str)
+#     return temp_str
 decode(['[newline]\t000010', '(\t000011', ')\t000100', '3\t000101', ':\t000110', 'G\t000111', 'K\t001000', 'U\t001001',
         '[\t001010', ']\t001011', 'x\t001100', '4\t001101', '7\t001110', 'D\t001111', 'F\t010000', 'J\t010001',
         'R\t010010', '8\t010011', 'O\t010100', 'k\t010101', '5\t010110', '6\t010111', 'B\t011000', 'M\t011001',
