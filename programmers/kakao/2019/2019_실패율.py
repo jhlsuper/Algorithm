@@ -24,4 +24,3 @@ def solution(N, stages):
     return real_answer
 
 
-solution(4, [4, 4, 4, 4, 4])
