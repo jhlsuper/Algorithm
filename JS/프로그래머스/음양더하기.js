@@ -14,8 +14,6 @@ function solution(absolutes, signs) {
             answer-=absolutes[a]
         }
         
-    
-
     }
     // console.log(answer)
     return answer
