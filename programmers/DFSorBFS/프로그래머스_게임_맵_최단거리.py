@@ -28,7 +28,7 @@ def reachTheEnd(grid, maxTime):
                         queue.append([dy, dx])
     answer = check_maps[-1][-1]
     print(answer)
-    if answer==-1:
+    if answer == -1:
         return "No"
     if maxTime >= answer:
         return "Yes"
