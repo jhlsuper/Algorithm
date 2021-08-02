@@ -1,20 +1,29 @@
 def solution(p):
     answer = ''
     stack = []
-# TODO 괄호변경 끝까지 풀기
+    # print(p)
+# TODO 나중에 다시 풀어봅시다.. 20점
     for i in range(len(p)):
+
         if len(stack) == 0:
             stack.append([p[i], i])
+
         else:
             if p[i][0] == '(':
 
                 stack.append([p[i], i])
-            elif p[i] == ')':
+
+            elif p[i][0] == ')':
                 if stack[-1][0] == '(':
                     stack.pop()
-    print(stack)
+
+                else:
+                    stack.append([p[i], i])
+
+    # print(stack)
     if len(stack) == 0:
-        print(p)
+        # print(p)
+        answer =p
     else:
 
         for j in stack:
@@ -23,15 +32,16 @@ def solution(p):
 
             if p[j[-1]] == '(':
                 p[j[-1]] = ')'
-            if p[j[-1]] == ')':
+            elif p[j[-1]] == ')':
                 p[j[-1]] = '('
-        print(''.join(p))
+        # print(''.join(p))
+        answer = ''.join(p)
         # print(p)
     # print(stack)
-
+    print(answer)
     return answer
 
 
-# solution("(()())()")
-# solution(")(")
+solution("(()())()")
+solution(")(")
 solution("()))((()")
