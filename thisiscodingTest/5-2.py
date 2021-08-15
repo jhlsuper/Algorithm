@@ -28,4 +28,3 @@ for i in range(n):
         if dfs(i, j):
             result += 1
 print(result)
-
