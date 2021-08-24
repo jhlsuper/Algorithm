@@ -18,21 +18,25 @@ def solution(info, query):
                 info_dict[temp_key].append(score)
     for key in info_dict.keys():
         info_dict[key].sort()
-    # print(info_dict)
+    print(info_dict)
 
     for querys in query:
         querys = querys.split(" ")
         query_key = querys[:-1]
         query_score = int(querys[-1])
-
+        # print(query_key)
+        ## and 는 최대 3개 까지 있다.
         for _ in range(3):
             query_key.remove("and")
         while "-" in query_key:
             query_key.remove("-")
+
+        ##하나의 string으로 만든다.
         query_key = ''.join(query_key)
+
         if query_key in info_dict:
             scoreList = info_dict[query_key]
-
+            # print(scoreList)
             if len(scoreList) > 0:
                 left, right = 0, len(scoreList)
                 while left < right:
@@ -44,7 +48,7 @@ def solution(info, query):
                 answer.append(len(scoreList) - left)
         else:
             answer.append(0)
-    print(answer)
+    # print(answer)
     return answer
 
 
