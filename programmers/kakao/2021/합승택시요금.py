@@ -10,26 +10,31 @@ def solution(n, s, a, b, fares):
     for j in fares:
         dic[j[0]][j[1]] = j[2]
         dic[j[1]][j[0]] = j[2]
+    print(dic)
     candidate = dijkstra(dic, s)
+    # print(candidate)
+    # 그냥 따로따로 출발지에서 출발하는 경우
     answer.append(candidate[a] + candidate[b])
     for i in range(1, n + 1):
         if i == s:
             continue
         mid = i
+        # print(dic)
         temp = dijkstra(dic, mid)
         answer.append(candidate[mid] + temp[a] + temp[b])
-        print(temp)
+        # print(temp)
     return min(answer)
 
 
-## 다익스트라 사용
+# 다익스트라 사용
 
 def dijkstra(graph, start):
     distances = {node: float('inf') for node in graph}
     distances[start] = 0
+    # print(distances)
     queue = []
     heapq.heappush(queue, [distances[start], start])
-
+    # print(queue)
     while queue:
         current_distance, current_node = heapq.heappop(queue)
 
