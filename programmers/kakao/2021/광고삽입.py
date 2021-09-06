@@ -1,33 +1,36 @@
 def solution(play_time, adv_time, logs):
     answer = ''
+    play_time = to_string(play_time)
     time = {}
-    all_time = []
+    all_time = [0 for i in range(play_time + 1)]
     adv_second = to_second(adv_time)
 
     for i in logs:
-
         start, end = (i.split("-"))[0], i.split("-")[1]
         start_second = to_second(start)
         end_second = to_second(end)
-        # print(start_second, end_second)
+        # print(to_string(start_second), to_string(end_second))
+        all_time[start] += 1
+        all_time[end] -= 1
 
-        for j in range(start_second, end_second):
-            if j not in time:
-                time[j] = 1
+    for i in range(1, len(all_time)):
+        all_time[i] = all_time[i] + all_time[i - 1]
+
+    for i in range(1, len(all_time)):
+        all_time[i] = all_time[i] + all_time[i - 1]
+
+    most_view = 0
+    max_time = 0
+
+    for i in range(adv_time - 1, play_time):
+        if i >= adv_time:
+            if most_view < all_time[i] - all_time[i - adv_time]:
+                most_view = i - adv_time + 1
             else:
-                time[j] += 1
-
-    max_value = max(time.values())
-    max_start = (find_key(time, max_value))
-    temp = max_start
-    while time[temp] == max_value:
-        temp += 1
-    print(max_start, temp - 1)
-    answer = to_string(max_start)
-    sum = 0
-
-    return answer
-
+                if most_view < all_time[i]:
+                    most_view = all_time[i]
+                    max_time = i - adv_time + 1
+    return to_string(max_time)
 
 def find_key(dict, val):
     return next(key for key, value in dict.items() if value == val)
@@ -47,7 +50,7 @@ def to_string(seconds):
     m = '0' + str(m) if m < 10 else str(m)
     seconds = seconds % 60
     s = '0' + str(seconds) if seconds < 10 else str(seconds)
-    return h + ":" +m+":"+s
+    return h + ":" + m + ":" + s
 
 
 solution("02:03:55", "00:14:15",
