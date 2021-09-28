@@ -13,5 +13,6 @@ def solution(s):
         return 0
 
 
+
 solution("baabaa")
 solution("cdcd")
