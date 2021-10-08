@@ -1,16 +1,20 @@
 def solution(scores):
     answer = ''
+    len1 = len(scores[0])
 
     for i in range(len(scores)):
+        temp = []
+        self_score = scores[i][i]
+        # print(self_score)
+        for j in range(len1):
+            temp.append(scores[j][i])
+        # print(temp)
+        if self_score == max(temp) or self_score == min(temp):
+            if temp.count(self_score) == 1:
+                temp.remove(self_score)
+        score = sum(temp) / len(temp)
+        answer += getgrade(score)
 
-        if scores[i][i] == max(scores[i]) or scores[i][i] == min(scores[i]):
-            scores[i][i] = 0
-        b = [z[i] for z in scores]  ##colume을 출력하는 방법
-        if 0 in b:
-            b.remove(0)
-        temp = sum(b) / len(b)
-        answer += getgrade(temp)
-    print(answer)
     return answer
 
 
@@ -25,7 +29,3 @@ def getgrade(score):
         return "D"
     elif 50 > score:
         return "F"
-
-
-solution(
-    [[70, 49, 90], [68, 50, 38], [73, 31, 100]])
