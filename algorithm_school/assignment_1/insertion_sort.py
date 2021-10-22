@@ -14,6 +14,7 @@ def insertion_sort(array):
 
     start_time = time.time()
     for end in range(1, len(array)):
+
         for i in range(end, 0, -1):
             count += 1
             if array[i - 1] > array[i]:
