@@ -13,12 +13,20 @@ def insertion_sort(array):
     print(array)
 
     start_time = time.time()
-    for end in range(1, len(array)):
-
-        for i in range(end, 0, -1):
-            count += 1
-            if array[i - 1] > array[i]:
-                array[i - 1], array[i] = array[i], array[i - 1]
+    n = len(array)
+    for i in range(1, n):
+        key = array[i]  # index 값을 key로 저장
+        j = i - 1
+        while j >= 0 and array[j] > key:
+            array[j + 1] = array[j] # 값을 오른쪽으로 한칸 이동
+            j -= 1
+        array[j + 1] = key
+    # for end in range(1, len(array)):
+    #
+    #     for i in range(end, 0, -1):
+    #         count += 1
+    #         if array[i - 1] > array[i]:
+    #             array[i - 1], array[i] = array[i], array[i - 1]
     end_time = time.time()
     print("----정렬 후 배열----")
     print(array)
