@@ -1,8 +1,12 @@
 import random
 import time
 
-global m_count
-m_count: int = 0
+m_t2 = 0
+m_count = 0
+h_count = 0
+
+q_v1_count = 0
+q_v1_t2 = 0
 
 
 def insertion_sort(array):
@@ -17,8 +21,9 @@ def insertion_sort(array):
     for i in range(1, n):
         key = array[i]  # index 값을 key로 저장
         j = i - 1
+        count += 1
         while j >= 0 and array[j] > key:
-            array[j + 1] = array[j] # 값을 오른쪽으로 한칸 이동
+            array[j + 1] = array[j]  # 값을 오른쪽으로 한칸 이동
             j -= 1
         array[j + 1] = key
     # for end in range(1, len(array)):
@@ -37,55 +42,66 @@ def insertion_sort(array):
 
 
 def heap_sort(random_array):
-    count = 0
+    global h_count
+
     heap_size = len(random_array)
     t1 = time.time()
-    print("t1--")
-    print(t1)
+
     for i in range(heap_size // 2 - 1, -1, -1):
         heapify(random_array, i, heap_size)
-        count += 1
+
     for i in range(heap_size - 1, 0, -1):
         random_array[0], random_array[i] = random_array[i], random_array[0]
         heapify(random_array, 0, i)
-        count += 1
+
         t2 = time.time()
 
     print(random_array)
     print(t2 - t1)
+    print(h_count)
 
 
 def heapify(unsorted, index, heap_size):
+    global h_count
     largest = index
     left = 2 * index + 1
     right = 2 * index + 2
 
     if left < heap_size and unsorted[left] > unsorted[largest]:
         largest = left
+        h_count += 1
     if right < heap_size and unsorted[right] > unsorted[largest]:
         largest = right
+        h_count += 1
     if largest != index:
         unsorted[largest], unsorted[index] = unsorted[index], unsorted[largest]
+        h_count += 1
         heapify(unsorted, largest, heap_size)
 
 
 def merge_sort(a):
     global m_count
+    global m_t2
     if len(a) <= 1:
         return a
-    m_t1 = time.time()
+
     mid = len(a) // 2
     leftList = a[:mid]
     rightList = a[mid:]
     leftList = merge_sort(leftList)
     rightList = merge_sort(rightList)
+    m_t2 = time.time()
+    # print(m_t2)
 
     return merge(leftList, rightList)
 
 
 def merge(left, right):
     global m_count
+    global m_t2
+    global m_t1
     result = []
+    m_t1 = time.time()
     while len(left) > 0 or len(right) > 0:
         if len(left) > 0 and len(right) > 0:
             m_count += 1
@@ -96,17 +112,48 @@ def merge(left, right):
                 result.append(right[0])
                 right = right[1:]
         elif len(left) > 0:
-
+            m_count += 1
             result.append(left[0])
             left = left[1:]
         elif len(right) > 0:
-
+            m_count += 1
             result.append(right[0])
             right = right[1:]
         # print(result)
     # print(result)
+
     m_t2 = time.time()
+    print(m_t2)
     return result
+
+
+def quick_sort_v1(array, s, e):
+    global q_v1_count
+    global q_v1_t2
+    if s >= e:
+        return
+    pivot = s  # 첫번째 원소를 pivot으로
+    left = s + 1
+    right = e
+
+    while left <= right:
+
+        while left <= e and array[left] <= array[pivot]:
+            left += 1
+            q_v1_count += 1
+        while right > s and array[right] >= array[pivot]:
+            right -= 1
+            q_v1_count += 1
+        if left > right:
+            # q_v1_count +=1
+            array[right], array[pivot] = array[pivot], array[right]
+        else:
+
+            array[left], array[right] = array[right], array[pivot]
+    q_v1_t2 = time.time()
+    # print(q_v1_t2)
+    quick_sort_v1(array, s, right - 1)
+    quick_sort_v1(array, right + 1, e)
 
 
 def make_random_array(n):
@@ -118,8 +165,12 @@ def make_random_array(n):
     return random_array
 
 
-if __name__ == '__main__':
+def main():
+    global m_t2
+    global m_count
 
+    global q_v1_count
+    global q_v1_t2
     while True:
         array = make_random_array(1000)
         print("숫자를 입력해서 정렬 알고리즘을 골라주세요!")
@@ -142,8 +193,15 @@ if __name__ == '__main__':
             answer_array = merge_sort(array)
             print(answer_array)
             print(m_count)
+            print(m_t2 - start_time)
+
         elif num == 4:
-            print("Qucik 1")
+            q_v1_t1 = time.time()
+            quick_sort_v1(array, 0, len(array) - 1)
+
+            print(array)
+            print(q_v1_t2 - q_v1_t1)
+            print(q_v1_count)
         elif num == 5:
             print("Quick 2")
         elif num == 6:
@@ -159,3 +217,6 @@ if __name__ == '__main__':
             continue
         elif num2 == 0:
             break
+
+
+main()
