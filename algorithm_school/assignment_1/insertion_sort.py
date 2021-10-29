@@ -1,6 +1,7 @@
 import random
 import time
 
+## 전역변수 선언
 m_t2 = 0
 m_count = 0
 h_count = 0
@@ -16,23 +17,32 @@ def insertion_sort(array):
     print("----정렬 전 배열----")
     print(array)
 
-    start_time = time.time()
     n = len(array)
+    start_time = time.time()
     for i in range(1, n):
         key = array[i]  # index 값을 key로 저장
         j = i - 1
-        count += 1
-        while j >= 0 and array[j] > key:
-            array[j + 1] = array[j]  # 값을 오른쪽으로 한칸 이동
-            j -= 1
-        array[j + 1] = key
-    # for end in range(1, len(array)):
-    #
-    #     for i in range(end, 0, -1):
-    #         count += 1
-    #         if array[i - 1] > array[i]:
-    #             array[i - 1], array[i] = array[i], array[i - 1]
+        # 리스트의 j번째 값과 key를 계속 비교해 key가 들어갈 위치를 찾는 while문
+        # while j >= 0 and array[j] > key:
+        #     count += 1
+        #     array[j + 1] = array[j]  # 값을 오른쪽으로 한칸 이동
+        #     j -= 1  
+        # array[j + 1] = key
+        #
+        # while j >= 0 and array[j] <= key:
+        #     count += 1
+        #     j -= 1
+        while j >= 0:  # 모든 비교과정을 count 하기위한 조건식을 추가한 while문.
+            if array[j] > key:
+                count += 1
+
+                j -= 1
+            elif array[j] <= key:
+                count += 1
+                j -= 1
+        array[j + 1] = array[j]  # 삽입할 공간이 생기게 값을 오른쪽으로 한칸 이동시킨다.
     end_time = time.time()
+
     print("----정렬 후 배열----")
     print(array)
     print("----배열 소요시간(초), 비교 횟수")
@@ -46,161 +56,126 @@ def heap_sort(random_array):
 
     heap_size = len(random_array)
     t1 = time.time()
-
+    # 리스트의 중앙에서부터 거꾸로 heapify를 해준다.
     for i in range(heap_size // 2 - 1, -1, -1):
         heapify(random_array, i, heap_size)
-
+    # 루트값을 가장 끝 값으로 이동한 다음 heapify 실행
     for i in range(heap_size - 1, 0, -1):
         random_array[0], random_array[i] = random_array[i], random_array[0]
+
         heapify(random_array, 0, i)
 
         t2 = time.time()
-
+    print("----정렬 후 배열----")
     print(random_array)
-    print(t2 - t1)
-    print(h_count)
+    print("----배열 소요시간(초), 비교 횟수")
+    print(t2 - t1, h_count)
 
 
+# 리스트가 힙인지 확인하고 재정렬
 def heapify(unsorted, index, heap_size):
     global h_count
+
     largest = index
     left = 2 * index + 1
     right = 2 * index + 2
-
+    # 자식 노드와 부모 노드와의 비교한뒤 자식노드가 부모노드보다 크면 인덱스를 스위치 해줍니다.
     if left < heap_size and unsorted[left] > unsorted[largest]:
         largest = left
-        h_count += 1
+
     if right < heap_size and unsorted[right] > unsorted[largest]:
         largest = right
-        h_count += 1
+    # 부모 노드의 인덱스값이 변경되었으면 자식노드와 값을 스위치 해줍니다.
     if largest != index:
         unsorted[largest], unsorted[index] = unsorted[index], unsorted[largest]
         h_count += 1
-        heapify(unsorted, largest, heap_size)
+        heapify(unsorted, largest, heap_size)  # heapify 재귀함수
 
 
 def merge_sort(a):
     global m_count
     global m_t2
-    if len(a) <= 1:
+
+    m_t2 = 0
+    if len(a) <= 1:  # 리스트의 길이가 1이될때 까지 분할 정복을 계속 진행한다.
         return a
 
     mid = len(a) // 2
-    leftList = a[:mid]
+    leftList = a[:mid]  # 중앙값을 기준으로 왼쪽과 오른쪽 리스트로 나눔
     rightList = a[mid:]
-    leftList = merge_sort(leftList)
+    leftList = merge_sort(leftList)  # 분할된 리스트를 계속 분할
     rightList = merge_sort(rightList)
     m_t2 = time.time()
-    # print(m_t2)
 
     return merge(leftList, rightList)
 
 
-def merge(left, right):
+def merge(left, right):  # 리스트를 병합하는 함수.
     global m_count
     global m_t2
     global m_t1
     result = []
+
     m_t1 = time.time()
-    while len(left) > 0 or len(right) > 0:
+    while len(left) > 0 or len(right) > 0:  # 왼쪽이나 오른쪽 모두 남아있을때.
         if len(left) > 0 and len(right) > 0:
             m_count += 1
-            if left[0] <= right[0]:
+            if left[0] <= right[0]:  # 왼쪽값과 오른쪽 값을 비교해서 작은값을 추가
                 result.append(left[0])
                 left = left[1:]
             else:
                 result.append(right[0])
                 right = right[1:]
-        elif len(left) > 0:
+        elif len(left) > 0:  # 왼쪽만 남아있을때
             m_count += 1
             result.append(left[0])
             left = left[1:]
-        elif len(right) > 0:
+        elif len(right) > 0:  # 오른쪽만 남아있을때
             m_count += 1
             result.append(right[0])
             right = right[1:]
-        # print(result)
-    # print(result)
 
-    m_t2 = time.time()
-    print(m_t2)
+    m_t2 = time.time()  # 마지막 merge가 정렬이 끝난 시간
+
     return result
 
 
-# def quick_sort_v1(array, s, e, v):
-#     global q_v1_count, pivot
-#     global q_v1_t2
-#     if s >= e:
-#         return
-#     if v == 1:
-#         pivot = s # 첫번째 원소를 pivot으로
-#         print(pivot)
-#     elif v == 2:
-#         pivot = (random.randint(s, e))
-#
-#         print("pivot: %d"%pivot)
-#     elif v == 3:
-#         pivot = int((e - s) / 2) + 1
-#
-#         print(pivot)
-#     left = s + 1
-#     right = e
-#
-#     while left <= right:
-#
-#         while left <= e and array[left] <= array[pivot]:
-#             left += 1
-#             q_v1_count += 1
-#         while right > s and array[right] >= array[pivot]:
-#             right -= 1
-#             q_v1_count += 1
-#         if left > right:
-#             # q_v1_count +=1
-#             array[right], array[pivot] = array[pivot], array[right]
-#         else:
-#
-#             array[left], array[right] = array[right], array[pivot]
-#     q_v1_t2 = time.time()
-#     # print(q_v1_t2)
-#     quick_sort_v1(array, s, right - 1, v)
-#     quick_sort_v1(array, right + 1, e, v)
-def quick_sort(arr, v):
+def quick_sort(arr, v):  # v는 version을 고르는 인자
     global pivot, q_v1_count, q_v1_t2
 
     if len(arr) <= 1:
         return arr
-    if v == 1:
-
+    if v == 1:  # version 1 : 배열의 첫번째 원소
         pivot = arr[0]
-    elif v == 2:
-        rand = (random.randrange(0, len(arr)))
+    elif v == 2:  # version 1 : 배열의 랜덤 값
+        rand = (random.randrange(0, len(arr)))  # 배열의 길이의 범위내의 랜덤 숫자 추출
         pivot = arr[rand]
 
-        print("pivot: %d rand: %d" % (pivot, rand))
-    elif v == 3:
+        # print("pivot: %d rand: %d" % (pivot, rand))
+    elif v == 3:  # version 3 : 배열의 중앙 값
         pivot = arr[len(arr) // 2]
-    lesser_arr, equal_arr, greater_arr = [], [], []
+    lesser_arr, equal_arr, greater_arr = [], [], []  # 피벗과 비교한 원소들을 넣을 배열
     for num in arr:
         q_v1_count += 1
-        if num < pivot:
+        if num < pivot:  # 피벗보다 작은경우
             lesser_arr.append(num)
-            # q_v1_count += 1
-        elif num > pivot:
-            greater_arr.append(num)
-            # q_v1_count += 1
-        else:
-            equal_arr.append(num)
-            # q_v1_count += 1
-    q_v1_t2 = time.time()
 
+        elif num > pivot:  # 피벗보다 큰경우
+            greater_arr.append(num)
+
+        else:  # 피벗과 같은경우
+            equal_arr.append(num)
+
+    q_v1_t2 = time.time()
+    # 재귀 함수로 피벗보다, 작은배열+ 같은 배열 + 큰 배열을 합친다.
     return quick_sort(lesser_arr, v) + equal_arr + quick_sort(greater_arr, v)
 
 
-def make_random_array(n):
+def make_random_array(n):  # n 크기의 랜덤 배열을 만드는 함수
     random_array = []
-    while len(random_array) < n:
-        temp = (random.randint(1, n))
-        if temp not in random_array:
+    while len(random_array) < n:  # n크기가 될때까지 배열에 원소를 추가
+        temp = (random.randint(1, n))  # random 숫자를 1부터 n까지 계속 생성
+        if temp not in random_array:  # 배열에 없으면 추가
             random_array.append(temp)
     return random_array
 
@@ -208,7 +183,7 @@ def make_random_array(n):
 def main():
     global m_t2
     global m_count
-
+    global h_count
     global q_v1_count
     global q_v1_t2
     while True:
@@ -231,32 +206,39 @@ def main():
             print(array)
             start_time = time.time()
             answer_array = merge_sort(array)
+            print("----정렬 후 배열----")
             print(answer_array)
-            print(m_count)
-            print(m_t2 - start_time)
+            print("----배열 소요시간(초), 비교 횟수")
+            print(m_t2 - start_time, m_count)
 
         elif num == 4:
             q_v1_t1 = time.time()
-            # print(array)
-            # quick_sort_v1(array, 0, len(array) - 1, 1)
-            array = quick_sort(array, 1)
             print(array)
-            print(q_v1_t2 - q_v1_t1)
-            print(q_v1_count)
+
+            array = quick_sort(array, 1)
+            print("----정렬 후 배열----")
+            print(array)
+            print("----배열 소요시간(초), 비교 횟수")
+            print(q_v1_t2 - q_v1_t1, q_v1_count)
+
         elif num == 5:
             q_v1_t1 = time.time()
-            array = quick_sort(array, 2)
-            # quick_sort_v1(array, 0, len(array) - 1, 2)
             print(array)
-            print(q_v1_t2 - q_v1_t1)
-            print(q_v1_count)
+            array = quick_sort(array, 2)
+            print("----정렬 후 배열----")
+            print(array)
+            print("----배열 소요시간(초), 비교 횟수")
+            print(q_v1_t2 - q_v1_t1, q_v1_count)
+
         elif num == 6:
             q_v1_t1 = time.time()
-            array = quick_sort(array, 3)
-            # quick_sort_v1(array, 0, len(array) - 1, 3)
             print(array)
-            print(q_v1_t2 - q_v1_t1)
-            print(q_v1_count)
+            array = quick_sort(array, 3)
+            print("----정렬 후 배열----")
+            print(array)
+            print("----배열 소요시간(초), 비교 횟수")
+            print(q_v1_t2 - q_v1_t1, q_v1_count)
+
         elif num == 0:
             print("종료")
             break
@@ -265,6 +247,9 @@ def main():
         print("다시 하기 - 1  종료 하기 - 0")
         num2 = int(input("숫자 입력 : "))
         if num2 == 1:
+            h_count = 0
+            m_count = 0
+            q_v1_count = 0
             continue
         elif num2 == 0:
             break
