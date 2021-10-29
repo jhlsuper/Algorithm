@@ -127,43 +127,73 @@ def merge(left, right):
     return result
 
 
-def quick_sort_v1(array, s, e, v):
-    global q_v1_count, pivot
-    global q_v1_t2
-    if s >= e:
-        return
+# def quick_sort_v1(array, s, e, v):
+#     global q_v1_count, pivot
+#     global q_v1_t2
+#     if s >= e:
+#         return
+#     if v == 1:
+#         pivot = s # 첫번째 원소를 pivot으로
+#         print(pivot)
+#     elif v == 2:
+#         pivot = (random.randint(s, e))
+#
+#         print("pivot: %d"%pivot)
+#     elif v == 3:
+#         pivot = int((e - s) / 2) + 1
+#
+#         print(pivot)
+#     left = s + 1
+#     right = e
+#
+#     while left <= right:
+#
+#         while left <= e and array[left] <= array[pivot]:
+#             left += 1
+#             q_v1_count += 1
+#         while right > s and array[right] >= array[pivot]:
+#             right -= 1
+#             q_v1_count += 1
+#         if left > right:
+#             # q_v1_count +=1
+#             array[right], array[pivot] = array[pivot], array[right]
+#         else:
+#
+#             array[left], array[right] = array[right], array[pivot]
+#     q_v1_t2 = time.time()
+#     # print(q_v1_t2)
+#     quick_sort_v1(array, s, right - 1, v)
+#     quick_sort_v1(array, right + 1, e, v)
+def quick_sort(arr, v):
+    global pivot, q_v1_count, q_v1_t2
+
+    if len(arr) <= 1:
+        return arr
     if v == 1:
-        pivot = s # 첫번째 원소를 pivot으로
-        print(pivot)
+
+        pivot = arr[0]
     elif v == 2:
-        pivot = (random.randint(s, e))
+        rand = (random.randrange(0, len(arr)))
+        pivot = arr[rand]
 
-        print("pivot: %d"%pivot)
+        print("pivot: %d rand: %d" % (pivot, rand))
     elif v == 3:
-        pivot = int((e - s) / 2) + 1
-
-        print(pivot)
-    left = s + 1
-    right = e
-
-    while left <= right:
-
-        while left <= e and array[left] <= array[pivot]:
-            left += 1
-            q_v1_count += 1
-        while right > s and array[right] >= array[pivot]:
-            right -= 1
-            q_v1_count += 1
-        if left > right:
-            # q_v1_count +=1
-            array[right], array[pivot] = array[pivot], array[right]
+        pivot = arr[len(arr) // 2]
+    lesser_arr, equal_arr, greater_arr = [], [], []
+    for num in arr:
+        q_v1_count += 1
+        if num < pivot:
+            lesser_arr.append(num)
+            # q_v1_count += 1
+        elif num > pivot:
+            greater_arr.append(num)
+            # q_v1_count += 1
         else:
-
-            array[left], array[right] = array[right], array[pivot]
+            equal_arr.append(num)
+            # q_v1_count += 1
     q_v1_t2 = time.time()
-    # print(q_v1_t2)
-    quick_sort_v1(array, s, right - 1, v)
-    quick_sort_v1(array, right + 1, e, v)
+
+    return quick_sort(lesser_arr, v) + equal_arr + quick_sort(greater_arr, v)
 
 
 def make_random_array(n):
@@ -207,20 +237,23 @@ def main():
 
         elif num == 4:
             q_v1_t1 = time.time()
-            quick_sort_v1(array, 0, len(array) - 1, 1)
-
+            # print(array)
+            # quick_sort_v1(array, 0, len(array) - 1, 1)
+            array = quick_sort(array, 1)
             print(array)
             print(q_v1_t2 - q_v1_t1)
             print(q_v1_count)
         elif num == 5:
             q_v1_t1 = time.time()
-            quick_sort_v1(array, 0, len(array) - 1, 2)
+            array = quick_sort(array, 2)
+            # quick_sort_v1(array, 0, len(array) - 1, 2)
             print(array)
             print(q_v1_t2 - q_v1_t1)
             print(q_v1_count)
         elif num == 6:
             q_v1_t1 = time.time()
-            quick_sort_v1(array, 0, len(array) - 1, 3)
+            array = quick_sort(array, 3)
+            # quick_sort_v1(array, 0, len(array) - 1, 3)
             print(array)
             print(q_v1_t2 - q_v1_t1)
             print(q_v1_count)
