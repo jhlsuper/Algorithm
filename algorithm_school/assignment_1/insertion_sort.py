@@ -156,16 +156,16 @@ def quick_sort(arr, v):  # v는 version을 고르는 인자
         pivot = arr[len(arr) // 2]
     lesser_arr, equal_arr, greater_arr = [], [], []  # 피벗과 비교한 원소들을 넣을 배열
     for num in arr:
-        q_v1_count += 1
+
         if num < pivot:  # 피벗보다 작은경우
             lesser_arr.append(num)
-
+            q_v1_count += 1
         elif num > pivot:  # 피벗보다 큰경우
             greater_arr.append(num)
-
+            q_v1_count += 1
         else:  # 피벗과 같은경우
             equal_arr.append(num)
-
+            q_v1_count += 1
     q_v1_t2 = time.time()
     # 재귀 함수로 피벗보다, 작은배열+ 같은 배열 + 큰 배열을 합친다.
     return quick_sort(lesser_arr, v) + equal_arr + quick_sort(greater_arr, v)
