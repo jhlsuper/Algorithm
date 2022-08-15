@@ -17,7 +17,7 @@ graph =[[],
         [2,6,8],
         [1,7]]
 
-visited = [False] * 9
+visited = [False] * 9  ## 9개는 node의 갯수
 dfs(graph, 1, visited)
 ```
 
