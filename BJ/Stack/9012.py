@@ -22,7 +22,4 @@ def solove(input):
 a = int(sys.stdin.readline())
 data = [sys.stdin.readline().strip() for i in range(a)]
 for i in data:
-    solove(i)
-
-
-        
+    solove(i)     
