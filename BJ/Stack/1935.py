@@ -30,7 +30,7 @@ for a in line:
         new_stack.append(temp)
     else:
         new_stack.append(a)
-print(new_stack)
+# print(new_stack)
 for a in new_stack:
    
     if(type(a)==int):
