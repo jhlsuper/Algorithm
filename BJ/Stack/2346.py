@@ -25,3 +25,5 @@ for i in range(n):
 
 # deque.extent(iterable) iterable argument(list, str, tuple)는 arguments의 각 요소를 하나씩 
 # 변환 가능한 object를 의미  (나눠서 )
+
+
