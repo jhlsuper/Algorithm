@@ -19,14 +19,14 @@ def solution(id_list, report, k):
     for key,elememt in dict.items():
         if(elememt[0]>=k):
             gotReport.append(key)
-    print(gotReport)
+    # print(gotReport)
     for i in dict.values():
         temp =0
         for j in i[2]:
             if j in gotReport:
                 temp+=1
         answer.append(temp)
-    print(answer)
+    # print(answer)
     return answer
 
 

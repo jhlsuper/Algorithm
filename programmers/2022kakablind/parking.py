@@ -13,11 +13,12 @@ def solution(fees, records):
            end = i.split()[0]
            start_time =(start.split(':'))
            end_time = end.split(':')
-           print(start_time, end_time)
+        #    print(start_time, end_time)
            minDiff = (int(end_time[0])*60 + int(end_time[1])) - (int(start_time[0])*60+ int(start_time[1]))
            
            if(minDiff <=fees[0]):
             answer.append(fees[1])
+            
     
        
     return answer
