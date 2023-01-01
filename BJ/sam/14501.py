@@ -11,4 +11,4 @@ for i in range(N):
 for i in range(N):
     if(s[i][0]==1):
         answer +=s[i][1]
-            
+        
