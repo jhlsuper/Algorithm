@@ -5,6 +5,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "Launch Main8",
+      "request": "launch",
+      "mainClass": "Main8",
+      "projectName": "Algorithm_89c37d10"
+    },
+    {
+      "type": "java",
+      "name": "Launch Main7",
+      "request": "launch",
+      "mainClass": "Main7",
+      "projectName": "Algorithm_89c37d10"
+    },
+    {
       "name": "Python: 현재 파일",
       "type": "python",
       "request": "launch",
