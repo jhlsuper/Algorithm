@@ -7,7 +7,7 @@ public class B2518 {
         int N = sc.nextInt();
         int sum =0;
         int min =10000;
-        for(int i=M;i<N;i++){
+        for(int i=M;i<=N;i++){
             if(is_prime(i)){
                 if(i<min){
                     min=i;
