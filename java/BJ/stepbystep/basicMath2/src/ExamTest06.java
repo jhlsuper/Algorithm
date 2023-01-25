@@ -2,13 +2,33 @@ import java.util.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
+
 public class ExamTest06 {
-    public static void main(String[] args) {
-        for(int i=0; i<3;i++){
-            int computer = (int)(Math.random()*3)+1;
-            System.out.println(computer);
-        }
-    }
+//    public static void main(String[] args) {
+//        int[][] deltas = {{-1,-1},{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1}};
+//        char[][] grid = {{'5', 'X', '1', '2'},
+//                {'X', 'X', '2', '3'},
+//                {'4', 'X', '5', '9'},
+//                {'8', '7', 'X', '5'}};
+//        int sum =0;
+//        for(int r=0; r<grid.length;r++){
+//            for (int c =0; c< grid[0].length; c++){
+//                if(grid[r][c]=='X'){
+//                    for(int i=0; i<8;i++){
+//                        int nr = r+deltas[i][0];
+//                        int nc = c+deltas[i][1];
+//                        if(nr>=0 && nr<grid.length && nc>=0 &&nc<grid[0].length && grid[nr][nc] != 'X'){
+//                            sum+= grid[nc][nr]-'0';
+//                            grid[nc][nr] ='0';
+//                        }
+//                    }
+//
+//                }
+//            }
+//        }
+//        System.out.println(sum);
+//    }
+
     // public static void main(String[] args) {
     // int c_500 = 0;
     // int c_100 = 0;
@@ -77,6 +97,54 @@ public class ExamTest06 {
 //            System.out.println("3자리의 합은 "+answer+"입니다." );
 //            sc.close();
 //        }
+    public static void main(String[] args) {
+        int K = 1;
+        int R = 5;
+        int C = 5;
+        int[][] arr = new int[R][C];
+
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                arr[i][j] = K++;
+                System.out.printf("%2d" + " ", arr[i][j]);
+
+            }
+            System.out.println();
+        }
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                System.out.printf("%2d" + " ", arr[j][i]);
+            }
+            System.out.println();
+        }
+        for(int i=0; i<R; i++){
+            for(int j=0;j<C;j++){
+
+                System.out.printf("%2d"+"  ",arr[i][j+(C-1-2*j)*(i%2)]);
+//                System.out.printf("%2d"+"  ",arr[i][j+(C-1-2*j)]);
+            }
+            System.out.println();
+        }
+        for(int i=0; i<R; i++)
+            for(int j=0; i<R; i++){
+
+                    if(i>j){
+                        int temp = arr[i][j];
+                        arr[i][j] = arr[j][i];
+                        arr[j][i] =temp;
+
+
+                }
+//            System.out.println();
+            }
+        for(int i=0; i<R; i++){
+            for(int j=0;j<C;j++){
+                System.out.printf("%2d"+" ", arr[i][j]);
+
+            }
+            System.out.println();
+        }
+    }
 
 }
 

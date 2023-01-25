@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BJ/stepbystep/2ndDimensionalArray/2ndDimensionalArray.iml" filepath="$PROJECT_DIR$/BJ/stepbystep/2ndDimensionalArray/2ndDimensionalArray.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Algorithm.iml" filepath="$PROJECT_DIR$/Algorithm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BJ/BJ.iml" filepath="$PROJECT_DIR$/BJ/BJ.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BJ/stepbystep/basicMath2/basicMath2.iml" filepath="$PROJECT_DIR$/BJ/stepbystep/basicMath2/basicMath2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/java.iml" filepath="$PROJECT_DIR$/.idea/java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/programmers/programmers.iml" filepath="$PROJECT_DIR$/programmers/programmers.iml" />
+    </modules>
+  </component>
+</project>
