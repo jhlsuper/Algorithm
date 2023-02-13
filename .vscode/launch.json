@@ -6,6 +6,55 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch ExamTest06",
+      "request": "launch",
+      "mainClass": "ExamTest06",
+      "projectName": "Algorithm_89c37d10"
+    },
+    {
+      "type": "java",
+      "name": "Launch S1_3",
+      "request": "launch",
+      "mainClass": "java.javaprac.S1_3",
+      "projectName": "Algorithm_89c37d10"
+    },
+    {
+      "type": "java",
+      "name": "Launch S1_3",
+      "request": "launch",
+      "mainClass": "java.javaPrac.S1_3",
+      "projectName": "Algorithm_89c37d10"
+    },
+    {
+      "type": "java",
+      "name": "Launch B14916",
+      "request": "launch",
+      "mainClass": "B14916",
+      "projectName": "Algorithm_89c37d10"
+    },
+    {
+      "type": "java",
+      "name": "Attach",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": "<debug port of the debuggee>"
+    },
+    {
+      "type": "java",
+      "name": "Launch B14916",
+      "request": "launch",
+      "mainClass": "java.BJ.Greedy.B14916",
+      "projectName": "Algorithm_89c37d10"
+    },
+    {
+      "type": "java",
+      "name": "Launch Main",
+      "request": "launch",
+      "mainClass": "java.BJ.Greedy.Main",
+      "projectName": "Algorithm_89c37d10"
+    },
+    {
+      "type": "java",
       "name": "Launch Main9",
       "request": "launch",
       "mainClass": "Main9",
