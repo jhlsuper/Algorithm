@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ace3a328-5e3a-4bbb-837b-76feb6dd3cc1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../thisiscodingTest/implement/pillaranddam.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../thisiscodingTest/implement/pillaranddam.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="2Lgbz84od0I2J0lX5kkcUu7Grkn" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../thisisCodingTest" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ace3a328-5e3a-4bbb-837b-76feb6dd3cc1" name="Default Changelist" comment="" />
+      <created>1676295932436</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1676295932436</updated>
+      <workItem from="1676295934709" duration="22000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1688" y="303" key="FileChooserDialogImpl" timestamp="1676295955200">
+      <screen x="62" y="0" width="2498" height="1080" />
+    </state>
+    <state x="1688" y="303" key="FileChooserDialogImpl/62.0.2498.1080@62.0.2498.1080" timestamp="1676295955200" />
+  </component>
+</project>
