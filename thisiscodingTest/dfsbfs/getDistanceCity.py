@@ -27,7 +27,7 @@ def bfs(start):
                 distance[i] = distance[now] + 1
                 if distance[i] == K:
                     answer.append(i)
-                    # print(answer)
+
     if (len(answer)) == 0:
         print(-1)
         return
