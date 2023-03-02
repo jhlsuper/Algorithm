@@ -19,11 +19,13 @@ for i in range(N):
             empty.append((i, j))
         if arr[i][j] == 'T':
             teachers.append((i, j))  ## 선생님 정보 저장
+
+
 def bfs():
     dq = deque([])
     for a, b in teachers:
         for i in range(4):
-            dq.append((a, b, i))
+            dq.append((a, b, i))  # 좌표 + 탐색할 방햘 추가
     while dq:
         xx, yy, dd = dq.popleft()
         nx = xx + dx[dd]
@@ -36,20 +38,13 @@ def bfs():
     return True
 
 
-
-
-
 for i in combinations(empty, 3):
     copy_arr = copy.deepcopy(arr)
-    for j in i:
-        copy_arr[j[0]][j[1]] ='O'
+    for x, y in i:
+        copy_arr[x][y] = 'O' ##가독성
     if bfs():
         print("YES")
         flag = True
         break
 if not flag:
     print("NO")
-
-
-
-

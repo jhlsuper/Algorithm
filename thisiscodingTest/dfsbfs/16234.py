@@ -10,8 +10,9 @@ from collections import deque
 
 global visited
 global answer
+answer = 0
 # global visited
-global opened
+
 N, L, R = map(int, input().split())
 
 arr = [list(map(int, input().split())) for _ in range(N)]
@@ -19,10 +20,8 @@ arr = [list(map(int, input().split())) for _ in range(N)]
 dx = [0, 0, 1, -1]
 dy = [1, -1, 0, 0]
 
-opened = []
-x, y = 0, 0
-answer = 0
 
+x, y = 0, 0
 
 def bfs(a, b):
     q = deque()
