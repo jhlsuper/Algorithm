@@ -1,8 +1,9 @@
 # 입력
 n = int(input())
 m = int(input())
-bus_cost = [[100001 for _ in range(n + 1)] for _ in range(n + 1)]
-
+INF = 1e9
+bus_cost = [[INF for _ in range(n + 1)] for _ in range(n + 1)]
+float('inf')
 for _ in range(m):
     start, end, cost = map(int, input().split())
     bus_cost[start][end] = min(cost, bus_cost[start][end])
@@ -20,7 +21,7 @@ for k in range(1, n + 1):  # 경로 for문이 가장 상위 단계여야 누락�
 # 출력
 for row in bus_cost[1:]:
     for col in row[1:]:
-        if col == 100001:
+        if col == INF:
             print(0, end=" ")
         else:
             print(col, end=" ")

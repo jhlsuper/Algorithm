@@ -9,7 +9,7 @@ for _ in range(1, n + 1):
 for k in range(1, n + 1):
     for a in range(1, n + 1):
         for b in range(1, n + 1):
-            map[a][b] = min(map[a][b], map[a][k] + map[k][b])
+            map[a][b] = min(map[a][b], map[a][k] + map[k][b])]
 
 for i in range(1, n + 1):
     flag = True
@@ -20,3 +20,5 @@ for i in range(1, n + 1):
     if flag:
         answer += 1
 print(answer)
+
+##
