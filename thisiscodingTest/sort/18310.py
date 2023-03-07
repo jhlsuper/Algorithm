@@ -27,3 +27,10 @@ else:
             answer = mid_up
             break
     print(answer)
+
+
+def getDiff(a):
+    temp = 0
+    for i in li:
+        temp += abs(a - i)
+    return temp
