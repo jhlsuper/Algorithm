@@ -1,6 +1,6 @@
 ## M : N
 from collections import deque
-
+;
 dx = [-1, 0, 0, 1]  ## 상 좌 우 하
 dy = [0, -1, 1, 0]
 N, M = map(int, input().split())
