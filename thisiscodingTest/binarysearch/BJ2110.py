@@ -6,8 +6,9 @@ import sys
 
 input = sys.stdin.readline
 
-
+result =0
 def binary_search(house_pos, num):
+    global result
     start = 1
     end = house_pos[-1] - house_pos[0]
 
@@ -21,9 +22,10 @@ def binary_search(house_pos, num):
                 position = house_pos[i]
         if count >= num:
             start = mid + 1
+            result = mid
         else:
             end = mid - 1
-    print(end)
+
 
 
 N, C = (map(int, input().split()))
@@ -31,3 +33,4 @@ N, C = (map(int, input().split()))
 arr = [int(input().rstrip()) for _ in range(N)]
 arr = sorted(arr)
 binary_search(arr, C)
+print(result)
