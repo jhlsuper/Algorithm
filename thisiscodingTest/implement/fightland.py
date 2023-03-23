@@ -54,17 +54,22 @@ def move(people):
     return npeople
 
 
-def checkPosition(people):  ##이동후에 좌표 확인
-    x, y, d, s, g = people
+def checkPosition(person,n):  ##이동후에 좌표 확인 n은 people의 몇번째 사람인지
+    x, y, d, s, g = person
     ## 총이있다면
     if maps[x][y] != 0 and not str(maps[x][y]).isalpha():
         if g == False:
-            people = [x, y, d, s + maps[x][y], maps[x][y]]
-            maps[x][y] = 0
+            npeople = [x, y, d, s + maps[x][y], maps[x][y]]
+            maps[x][y] = str()
+            return npeople
+    ## 사람이있다면
     if str(maps[x][y]).isalpha():
-        index = ord(maps[x][y])
-## 사람이있다면
+        op = people[ord(maps[x][y])-65]
+        
+
 
 ## 둘다 아니라면
+    if maps[x][y] ==0:
+        return people
 
 # def checkpeople(x, y):
