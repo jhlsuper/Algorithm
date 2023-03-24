@@ -9,10 +9,12 @@ ty = [-1, -1, 1, 1]
 maps = []
 trees = []
 empty = []
+killer = []  # 제초제 좌표 남은 일수
+answer = 0
 
 
 # print(maps)
-def grow():  # 나무 성장 이게 지금 동작 x
+def grow():
     global maps
     global trees
     for x, y in trees:
@@ -24,7 +26,7 @@ def grow():  # 나무 성장 이게 지금 동작 x
                 # print(nx,ny)
                 if maps[nx][ny] > 0:
                     count += 1
-        print(count)
+        # print(count)
         maps[x][y] += count
 
 
@@ -52,21 +54,22 @@ def reproduce():
             if (nx, ny) in empty:
                 count += 1
                 temp.append((nx, ny))
-        print(count, x, y)
+        # print(count, x, y)
         if count > 0:
             for i, j in temp:
                 maps[i][j] += int(maps[x][y] // count)
-                print(maps[x][y], (maps[x][y] // count))
+                # print(maps[x][y], (maps[x][y] // count))
     findEmptyAndTrees()
 
 
 def findBiggestKill():
+    global answer
     biggest = 0
     kx, ky = 0, 0
     for x, y in trees:
         # count = 0
         count = maps[x][y]
-        print("-----", x, y)
+        # print("-----", x, y)
         for i in range(4):
             for j in range(1, k + 1):
 
@@ -75,27 +78,94 @@ def findBiggestKill():
                 if 0 <= nx < n and 0 <= ny < n:
                     if maps[nx][ny] > 0:
                         count += maps[nx][ny]
-                        print(nx, ny, maps[nx][ny])
+                        # print(nx, ny, maps[nx][ny])
                     else:
                         break
-        print(count)
+        # print(count)
         if count > biggest:
             biggest = count
             kx = x
             ky = y
-    print(kx, ky)
+    answer += biggest
+    # print(answer)
+    return kx, ky
+
+
+def sprayKiller(x, y):  ## 제초제 뿌리기
+    global answer
+    # answer += maps[x][y]
+    maps[x][y] = (-5)
+    killer.append([x, y, c])
+    for i in range(4):
+        for j in range(1, k + 1):
+            nx = x + (tx[i] * j)
+            ny = y + (ty[i] * j)
+            if 0 <= nx < n and 0 <= ny < n:
+                if maps[nx][ny] > 0:
+                    # answer += maps[nx][ny]
+                    maps[nx][ny] = (-5)
+
+                    killer.append([nx, ny, c])
+                    # print(nx, ny, maps[nx][ny])
+
+                else:
+                    if maps[nx][ny] == -1:
+                        break
+                    if maps[nx][ny] == 0:
+                        maps[nx][ny] = (-5)
+                        killer.append([nx, ny, c])
+                        break
+                    else:
+                        # answer += maps[nx][ny]
+                        maps[nx][ny] = (-5)
+
+                        killer.append([nx, ny, c])
+                        # break
+
+
+def oneYear():
+    global killer
+    temp = []
+    for i in range(len(killer)):
+        # print(x, y, c)
+        x, y, c = killer[i][0], killer[i][1], killer[i][2]
+        if c == 1:
+            maps[x][y] = 0
+        else:
+            temp.append([x, y, c - 1])
+    killer = temp
+    findEmptyAndTrees()
 
 
 for i in range(n):
     temp = list(map(int, input().split()))
     maps.append(temp)
-    # for j in range(n):
-    #     if temp[j] > 0:
-    #         trees.append((i, j))
+
 
 # print(maps)
-findEmptyAndTrees()
-grow()
-reproduce()
-print(trees)
-findBiggestKill()
+
+
+def firstyear():
+    findEmptyAndTrees()
+    grow()
+    reproduce()
+    x, y = findBiggestKill()
+    sprayKiller(x, y)
+
+
+def year():
+    grow()
+    reproduce()
+    oneYear()
+    x, y = findBiggestKill()
+    sprayKiller(x, y)
+
+
+for i in range(1, m + 1):
+    if i > 1:
+        year()
+        # print(maps)
+    else:
+        firstyear()
+        # print(maps)
+print(answer)
