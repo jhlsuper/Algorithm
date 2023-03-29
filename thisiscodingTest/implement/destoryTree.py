@@ -117,9 +117,14 @@ def sprayKiller(x, y):  ## 제초제 뿌리기
                         break
                     else:
                         # answer += maps[nx][ny]
+                        for idx in range(len(killer)):
+                            a, b, c1 = killer[idx]
+                            if nx == a and ny == b:
+                                killer[idx] = [a, b, c]
+                                break
                         maps[nx][ny] = (-5)
 
-                        killer.append([nx, ny, c])
+                        # killer.append([nx, ny, c])
                         # break
 
 
