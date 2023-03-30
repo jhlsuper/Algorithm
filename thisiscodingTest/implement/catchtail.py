@@ -1,5 +1,7 @@
+from collections import deque
+
 n, m, k = map(int, input().split())
-global visited
+
 maps = [[] for _ in range(n)]  ##지도 정보
 lines = [[] for _ in range(m)]  ##사람 줄 정보
 startline = []  ## 라인 시작좌표 저장 하는 곳
@@ -18,35 +20,60 @@ print(maps)
 # def findLine(x, y, i):  ##x,y i는 몇번째
 # temp = []
 
-# temp.append((x, y))
+## 그냥 시뮬로 계속 찾기
 
-def dfs(x, y, temp, visited):
-    # print(x, y, visited)
+def findLine(x, y):
+    line = []
+    index = 1
+    while True:
+        if index == 1:
 
-    visited[x][y] = True
-    temp.append((x, y))
-    print(temp)
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
-        if 0 <= nx < n and 0 <= ny < y and not visited[nx][ny] and maps[nx][ny] != 0:
-            # if maps[nx][ny] == 2:
-            temp.append((nx, ny))
-            print(nx, ny)
-            dfs(nx, ny, temp, visited)
-
-
-# print(startline[0][0], startline[0][1])
+            for i in range(4):
+                nx = x + dx[i]
+                ny = y + dy[i]
+                if 0 <= nx < n and 0 <= ny < n and maps[nx][ny] == 2:
+                    line.append((nx, ny))
+                    index += 2
+                    print(nx, ny)
+        if index == 2:
+            flag = False
+            for i in range(4):
+                nx = x + dx[i]
+                ny = y + dy[i]
+                if 0 <= nx < n and 0 <= ny < n and maps[nx][ny] == 2:
+                    line.append((nx, ny))
+                    print(nx, ny)
+                    flag = True
+            if not flag:
+                index = 3
+                for i in range(4):
+                    nx = x + dx[i]
+                    ny = y + dy[i]
+                    if 0 <= nx < n and 0 <= ny < n and maps[nx][ny] == 3:
+                        line.append((nx, ny))
+                        print(nx, ny)
+        if index == 3:
+            for i in range(4):
+                nx = x + dx[i]
+                ny = y + dy[i]
+                if 0 <= nx < n and 0 <= ny < n and maps[nx][ny] == 4:
+                    line.append((nx, ny))
+                    print(nx, ny)
+                if maps[nx][ny] == 1:
+                    break
+    return line
 
 
 def findlines():
     for i in range(m):
-        temp = []
         visited = [[False] * n for _ in range(n)]
-        dfs(startline[i][0], startline[i][1], temp, visited)
 
-        lines[i] = (temp)
+        # dfs(startline[i][0], startline[i][1], visited, line)
+        print(findLine(startline[i][0], startline[i][1]))
+        # line = bfs(startline[i][0], startline[i][1], visited)
+
+        # lines[i] = line
 
 
 findlines()
-print(lines)
+# print(lines)
