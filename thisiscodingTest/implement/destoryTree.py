@@ -1,5 +1,3 @@
-import math
-
 n, m, k, c, = map(int, input().split())
 dx = [1, 0, -1, 0]
 dy = [0, 1, 0, -1]
@@ -63,6 +61,7 @@ def reproduce():
 
 
 def findBiggestKill():
+    biggestList = []
     global answer
     biggest = 0
     kx, ky = 0, 0
@@ -86,8 +85,23 @@ def findBiggestKill():
             biggest = count
             kx = x
             ky = y
+        if count == biggest:
+            if x < kx:
+                kx = x
+                ky = y
+                biggest = count
+            elif x == kx:
+                if y < ky:
+                    kx = x
+                    ky = y
+                    biggest =count
+            # biggestList.append((x, y, biggest))
     answer += biggest
-    # print(answer)
+    # for x,y,biggest in biggestList:
+    # sorted(biggestList, key=lambda big: (big[0], big[1]))
+    # answer += biggestList[0][2]
+    # kx = biggestList[0][0]
+    # ky = biggestList[0][1]
     return kx, ky
 
 
@@ -169,8 +183,8 @@ def year():
 for i in range(1, m + 1):
     if i > 1:
         year()
-        # print(maps)
+        print(maps)
     else:
         firstyear()
-        # print(maps)
+        print(maps)
 print(answer)
