@@ -65,7 +65,10 @@ def findBiggestKill():
     global answer
     biggest = 0
     kx, ky = 0, 0
-    for x, y in trees:
+    # for x in range(n);
+    #     for y in range(n):
+    #
+    for x, y in trees: ##빈공간에 뿌리는것도 고려를 해야됨!!!
         # count = 0
         count = maps[x][y]
         # print("-----", x, y)
@@ -124,6 +127,7 @@ def sprayKiller(x, y):  ## 제초제 뿌리기
 
                 else:
                     if maps[nx][ny] == -1:
+                        ##여기다가도 뿌려줬다
                         break
                     if maps[nx][ny] == 0:
                         maps[nx][ny] = (-5)

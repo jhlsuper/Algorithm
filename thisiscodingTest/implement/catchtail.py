@@ -10,7 +10,7 @@ dx = [0, 1, 0, -1]
 dy = [1, 0, -1, 0]
 
 
-def start():  ## initMap
+def start():
     nmaps = deepcopy(tracks)
     for team in teams:
         for index, pos in enumerate(team):
@@ -55,29 +55,32 @@ def move(team):
         ny = hy + dy[i]
         if 0 <= nx < n and 0 <= ny < n and (maps[nx][ny] == 3 or maps[nx][ny] == 4):
             result.append([nx, ny])  # head위
-    lpos = team[0]
-    for i in range(1, len(team)):
-        ni, nj = lpos
-        result.append([ni, nj])
-        lpos = team[i]
+    team.insert(0, (hx, hy))
+    # lpos = team[0]
+    #
+    # for i in range(1, len(team)):
+    #     ni, nj = lpos
+    #     result.append([ni, nj])
+    #     lpos = team[i]
     return result
 
 
 def getshot(r):
     shot = []  # 공의 루트
-    side, p = divmod(r, n)
+    side, p = divmod(r, n)  # 나누기 나머지
     if side % 4 == 0:
-        for j in range(n):
-            shot.append((p, j))
+        for i in range(n):
+            shot.append((p, i))
     elif side % 4 == 1:
         for i in range(n - 1, -1, -1):
             shot.append((i, p))
     elif side % 4 == 2:
-        for j in range(n - 1, -1, -1):
-            shot.append((n - p - 1, j))
+        for i in range(n - 1, -1, -1):
+            shot.append((n - p - 1, i))
     elif side % 4 == 3:
         for i in range(n):
             shot.append((i, n - p - 1))
+    print(shot)
     return shot
 
 
@@ -101,7 +104,7 @@ for i in range(n):
         if maps[i][j] == 1:
             team = []
             tempteam = getteam(i, j, team)
-      
+
             teams.append(team)
     # print(teams)
 score = 0

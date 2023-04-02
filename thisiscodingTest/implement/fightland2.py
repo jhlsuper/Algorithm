@@ -1,12 +1,10 @@
-## https://cieske.tistory.com/106
-
 import heapq
 
 
 def change_weapon(idx, y, x):
     # idx 검투사가 (x,y)에서 무기 선택하는 행위
     if field[y][x] and warriors[idx][4] > field[y][x][0]:
-        # 현재 무기보다 해당 위치에 있는 가장 쎈 무기가 더 좋은 경우(음수)
+        # 현재 무기보다 해당 위치에 있는 가장 쎈 무기가 더 좋은 경우
         # 지금 무기 집어넣고 가장 좋은 무기 선택
         warriors[idx][4] = heapq.heappushpop(field[y][x], warriors[idx][4])
 
@@ -23,7 +21,7 @@ def throw_weapon(idx, y, x):
 
 
 def fight(cur_idx, foe_idx):
-    # 두 싸움꾼 번호가 주어졌을 때, 상대방의 승리 여부 체크
+    #  상대방의 승리 여부 체크
     cur_stat, cur_weapon = warriors[cur_idx][3], warriors[cur_idx][4]
     foe_stat, foe_weapon = warriors[foe_idx][3], warriors[foe_idx][4]
 
