@@ -1,79 +1,115 @@
-from collections import deque
+from copy import deepcopy
 
 n, m, k = map(int, input().split())
+maps = [list(map(int, input().split())) for _ in range(n)]
 
-maps = [[] for _ in range(n)]  ##지도 정보
-lines = [[] for _ in range(m)]  ##사람 줄 정보
-startline = []  ## 라인 시작좌표 저장 하는 곳
-dx = [1, -1, 0, 0]
-dy = [0, 0, 1, -1]
+# 길
+tracks = [[0] * n for _ in range(n)]
+
+dx = [0, 1, 0, -1]
+dy = [1, 0, -1, 0]
+
+
+def start():  ## initMap
+    nmaps = deepcopy(tracks)
+    for team in teams:
+        for index, pos in enumerate(team):
+            x = pos[0]
+            y = pos[1]
+            if index == 0:
+
+                nmaps[x][y] = 1
+            elif index == len(team) - 1:
+                nmaps[x][y] = 3
+            else:
+                nmaps[x][y] = 2
+    return nmaps
+
+
+def settrack(x, y, visited):
+    visited[x][y] = True
+    tracks[x][y] = 4
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if 0 <= nx < n and 0 <= ny < n and not visited[nx][ny] and 1 <= maps[nx][ny] <= 4:
+            settrack(nx, ny, visited)
+
+
+def getteam(x, y, team):
+    team.append([x, y])
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if 0 <= nx < n and 0 <= ny < n and 1 <= maps[nx][ny] <= 3 and [nx, ny] not in team:
+            if maps[x][y] == 1 and maps[nx][ny] != 2:
+                continue
+            getteam(nx, ny, team)
+
+
+def move(team):
+    result = []
+    hx, hy = team[0]
+    for i in range(4):
+        nx = hx + dx[i]
+        ny = hy + dy[i]
+        if 0 <= nx < n and 0 <= ny < n and (maps[nx][ny] == 3 or maps[nx][ny] == 4):
+            result.append([nx, ny])  # head위
+    lpos = team[0]
+    for i in range(1, len(team)):
+        ni, nj = lpos
+        result.append([ni, nj])
+        lpos = team[i]
+    return result
+
+
+def getshot(r):
+    shot = []  # 공의 루트
+    side, p = divmod(r, n)
+    if side % 4 == 0:
+        for j in range(n):
+            shot.append((p, j))
+    elif side % 4 == 1:
+        for i in range(n - 1, -1, -1):
+            shot.append((i, p))
+    elif side % 4 == 2:
+        for j in range(n - 1, -1, -1):
+            shot.append((n - p - 1, j))
+    elif side % 4 == 3:
+        for i in range(n):
+            shot.append((i, n - p - 1))
+    return shot
+
+
+def throw(shot, teams):
+    for tpos in shot:
+        for i in range(len(teams)):
+            for idx, pos in enumerate(teams[i]):
+                if tuple(pos) == tpos:
+                    teams[i] = teams[i][::-1]
+                    return (idx + 1) * (idx + 1)
+    return 0
+
+
+teams = []
+visited = [[False] * n for _ in range(n)]
+
 for i in range(n):
-    temp = list(map(int, input().split()))
-
     for j in range(n):
-        maps[i].append(temp[j])
-        if temp[j] == 1:
-            startline.append((i, j))
-print(maps)
-
-
-# def findLine(x, y, i):  ##x,y i는 몇번째
-# temp = []
-
-## 그냥 시뮬로 계속 찾기
-
-def findLine(x, y):
-    line = []
-    index = 1
-    while True:
-        if index == 1:
-
-            for i in range(4):
-                nx = x + dx[i]
-                ny = y + dy[i]
-                if 0 <= nx < n and 0 <= ny < n and maps[nx][ny] == 2:
-                    line.append((nx, ny))
-                    index += 2
-                    print(nx, ny)
-        if index == 2:
-            flag = False
-            for i in range(4):
-                nx = x + dx[i]
-                ny = y + dy[i]
-                if 0 <= nx < n and 0 <= ny < n and maps[nx][ny] == 2:
-                    line.append((nx, ny))
-                    print(nx, ny)
-                    flag = True
-            if not flag:
-                index = 3
-                for i in range(4):
-                    nx = x + dx[i]
-                    ny = y + dy[i]
-                    if 0 <= nx < n and 0 <= ny < n and maps[nx][ny] == 3:
-                        line.append((nx, ny))
-                        print(nx, ny)
-        if index == 3:
-            for i in range(4):
-                nx = x + dx[i]
-                ny = y + dy[i]
-                if 0 <= nx < n and 0 <= ny < n and maps[nx][ny] == 4:
-                    line.append((nx, ny))
-                    print(nx, ny)
-                if maps[nx][ny] == 1:
-                    break
-    return line
-
-
-def findlines():
-    for i in range(m):
-        visited = [[False] * n for _ in range(n)]
-
-        # dfs(startline[i][0], startline[i][1], visited, line)
-        print(findLine(startline[i][0], startline[i][1]))
-        # line = bfs(startline[i][0], startline[i][1], visited)
-
-        # lines[i] = line
-
-
-findlines()
-# print(lines)
+        if not visited[i][j] and 1 <= maps[i][j] <= 4:
+            settrack(i, j, visited)
+        if maps[i][j] == 1:
+            team = []
+            tempteam = getteam(i, j, team)
+      
+            teams.append(team)
+    # print(teams)
+score = 0
+for t in range(k):
+    for i in range(len(teams)):
+        teams[i] = move(teams[i])
+    shot = getshot(t)
+    # print(shot)
+    score += throw(shot, teams)
+    maps = start()
+print(score)

@@ -15,11 +15,14 @@ for i in range(1, n + 1):
             base.append((i, j))
     arr.append(temp)
 
+## 편의점
 store = [list(map(int, input().strip().split())) for _ in range(m)]
 
+##방문 할 수 있는지 확인
 check = [[0 for _ in range(n + 1)] for _ in range(n + 1)]
 
 
+# 편의점과 베이스의 거리
 def storetobase(x, y, bx, by):
     q = deque()
     visited = [[0 for _ in range(n + 1)] for _ in range(n + 1)]
@@ -39,6 +42,7 @@ def storetobase(x, y, bx, by):
     return -1
 
 
+# 편의점에서 가장 가까운 베이스 구하기
 def findbase(sx, sy):
     temp = []
 
@@ -56,6 +60,7 @@ def findbase(sx, sy):
         return -1, -1
 
 
+# 사람 to 편의점 최단거리 루트 찾기
 def gotostore(x, y, sx, sy, d):
     q = deque()
     visited = [[0 for _ in range(n + 1)] for _ in range(n + 1)]
@@ -66,10 +71,10 @@ def gotostore(x, y, sx, sy, d):
         visited[nx][ny] = 2
         q.append((nx, ny))
     else:
-        return sys.maxsize, 0, 0
+        return sys.maxsize, 0, 0  ##방문 못하면거리 max값 ㄱㄷ셔구
     while q:
         px, py = q.popleft()
-        if px == sx and py == sy:
+        if px == sx and py == sy:  ##편의점 도착시 거리, x,y 반환
             return visited[px][py] - 1, fnx, fny
         for i in range(4):
             nx, ny = px + dx[i], py + dy[i]
@@ -80,19 +85,19 @@ def gotostore(x, y, sx, sy, d):
     return sys.maxsize, 0, 0
 
 
-poslist = [[] for _ in range(m)]
-time = 1
+poslist = [[] for _ in range(m)]  ##사람별 현재 위치
+time = 1  ##흐른 시간
 
 sx, sy = store[0]
 bx, by = findbase(sx, sy)
 poslist[0] = [bx, by]
-check[bx][by] = 1
+check[bx][by] = 1  ## 방문 못하는 곳으로 check
 
-stop = [0 for _ in range(m)]
-count = 0
+stop = [0 for _ in range(m)]  # 1이면 도착완료
+count = 0  # 도착한 사람 수 ㄴ
 while count < m:
     time += 1
-    tempgo = [(0, 0) for _ in range(m)]
+    tempgo = [(0, 0) for _ in range(m)]  ##다음 위치
     for i in range(m):
         if poslist[i] and not stop[i]:
             sx, sy = store[i]
@@ -100,19 +105,19 @@ while count < m:
             min_dis = sys.maxsize
             minfx, minfy = 0, 0
 
-            for d in range(4):
+            for d in range(4):  ##4가지 방형으로 거리 구하기 최단거리인 방향 구하기
                 dis, fx, fy = gotostore(x, y, sx, sy, d)
                 if min_dis > dis:
                     min_dis = dis
                     minfx, minfy = fx, fy
             tempgo[i] = (minfx, minfy)
-    for i, (fx, fy) in enumerate(tempgo):
+    for i, (fx, fy) in enumerate(tempgo):  ## 도착지에 도착한 경우
         if store[i][0] == fx and store[i][1] == fy:
             poslist[i] = [fx, fy]
             check[fx][fy] = 1
             stop[i] = 1
             count += 1
-        else:
+        else:  ## 이동
             poslist[i] = [fx, fy]
     if time <= m:
         bx, by = findbase(store[time - 1][0], store[time - 1][1])
