@@ -23,6 +23,7 @@ groupsIndex = []  ## 그룹이 어떤 숫자로 이루어져있는지 넣어주�
 
 n = int(input())
 maps = [list(map(int, input().split())) for _ in range(n)]
+answer = 0
 
 
 def findGroups():
@@ -59,15 +60,43 @@ def findGroupsdfs(x, y):
 
 def getScore():
     index = []
+    score = 0
     for i in range(len(groups)):
         index.append(i)
 
     for i in combinations(index, 2):  ##순열로 확인
         ##배열 2개중 하나를 (길이가 짧은걸 골라서 )
         ## 모든 원소에 대해서 4방탐색 - 점수 구하기
+        fiIndex = i[0]
+        secIndex = i[1]
+        fiLen, secLen = len(groups[fiIndex]), len(groups[secIndex])
+        if fiLen <= secLen:
+            sGroup = groups[fiIndex]  ##배열의 길이가 짧은 배열
+            cGroup = groups[secIndex]  ## 몇개의 면이 인접한지 보는 배열
+        else:
+            sGroup = groups[secIndex]  ##start Group
+            cGroup = groups[fiIndex]  ## compare Group
+
+        count = 0  ## 인접한 면의 갯수
+
+        for x, y in sGroup:
+            ## 4방 탐색하여 cGroup에 좌표가 있다면 1씩 추가 !
+            for r in range(4):
+                nx = x + dx[r]
+                ny = y + dy[r]
+                if 0 <= nx < n and 0 <= ny < n:
+                    if (nx, ny) in cGroup:
+                        count += 1
+        print(sGroup, cGroup, count)
+        score += (fiLen + secLen) * groupsIndex[fiIndex] * groupsIndex[secIndex] * count
+    return score
+
+
+def rotate():
+    ## 돌리기 로직
 
 
 # print(findGroupsdfs(0, 1))
 findGroups()
 # print(groups, groupsIndex)
-getScore()
+print(getScore())
