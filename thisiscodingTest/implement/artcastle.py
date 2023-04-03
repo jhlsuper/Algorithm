@@ -63,6 +63,8 @@ def getScore():
         index.append(i)
 
     for i in combinations(index, 2):  ##순열로 확인
+        ##배열 2개중 하나를 (길이가 짧은걸 골라서 )
+        ## 모든 원소에 대해서 4방탐색 - 점수 구하기
 
 
 # print(findGroupsdfs(0, 1))
