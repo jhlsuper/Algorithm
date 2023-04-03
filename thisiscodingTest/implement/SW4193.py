@@ -30,16 +30,17 @@ for tc in range(t):
             if answer > d:
                 answer = d
                 break
+                # print(answer)
         q.append((cx, cy, d + 1))
         for i in range(4):
             nx = cx + xt[i]
             ny = cy + yt[i]
             if 0 <= nx < n and 0 <= ny < n and maps[nx][ny] != 1 and not visited[nx][ny]:
                 if maps[nx][ny] == 2:
-                    if d % 2 == 2:
+                    if d % 3 == 2:
                         visited[nx][ny] =1
                         q.append((nx, ny, d + 1))
                 else:
                     visited[nx][ny] = 1
                     q.append((nx, ny, d + 1))
-    print(answer)
+    print(f"#{tc+1} {answer}")
