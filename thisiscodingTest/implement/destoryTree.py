@@ -68,36 +68,40 @@ def findBiggestKill():
     # for x in range(n);
     #     for y in range(n):
     #
-    for x, y in trees: ##빈공간에 뿌리는것도 고려를 해야됨!!!
-        # count = 0
-        count = maps[x][y]
-        # print("-----", x, y)
-        for i in range(4):
-            for j in range(1, k + 1):
+    # for x, y in trees: ##빈공간에 뿌리는것도 고려를 해야됨!!! 그냥 다시 풀자!
+    for x in range(n):
+        for y in range(n):
+            if maps[x][y] != -1:
 
-                nx = x + (tx[i] * j)
-                ny = y + (ty[i] * j)
-                if 0 <= nx < n and 0 <= ny < n:
-                    if maps[nx][ny] > 0:
-                        count += maps[nx][ny]
-                        # print(nx, ny, maps[nx][ny])
-                    else:
-                        break
-        # print(count)
-        if count > biggest:
-            biggest = count
-            kx = x
-            ky = y
-        if count == biggest:
-            if x < kx:
-                kx = x
-                ky = y
-                biggest = count
-            elif x == kx:
-                if y < ky:
+                count = 0
+                count = maps[x][y]
+                # print("-----", x, y)
+                for i in range(4):
+                    for j in range(1, k + 1):
+
+                        nx = x + (tx[i] * j)
+                        ny = y + (ty[i] * j)
+                        if 0 <= nx < n and 0 <= ny < n:
+                            if maps[nx][ny] > 0:
+                                count += maps[nx][ny]
+                                # print(nx, ny, maps[nx][ny])
+                            else:
+                                break
+                # print(count)
+                if count > biggest:
+                    biggest = count
                     kx = x
                     ky = y
-                    biggest =count
+                if count == biggest:
+                    if x < kx:
+                        kx = x
+                        ky = y
+                        biggest = count
+                    elif x == kx:
+                        if y < ky:
+                            kx = x
+                            ky = y
+                            biggest = count
             # biggestList.append((x, y, biggest))
     answer += biggest
     # for x,y,biggest in biggestList:
@@ -128,6 +132,8 @@ def sprayKiller(x, y):  ## 제초제 뿌리기
                 else:
                     if maps[nx][ny] == -1:
                         ##여기다가도 뿌려줬다
+                        maps[nx][ny] = (-5)
+                        killer.append([nx, ny, c])
                         break
                     if maps[nx][ny] == 0:
                         maps[nx][ny] = (-5)
@@ -187,8 +193,8 @@ def year():
 for i in range(1, m + 1):
     if i > 1:
         year()
-        print(maps)
+        # print(maps)
     else:
         firstyear()
-        print(maps)
+        # print(maps)
 print(answer)
