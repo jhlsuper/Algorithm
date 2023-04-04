@@ -94,6 +94,12 @@ def getScore():
 
 def rotate():
     ## 돌리기 로직
+    ##사각형 좌표값들 찾기
+    mid = (n + 1) / 2 - 1
+    temp = []
+    for i in range(mid):
+        temp.append((i, mid))
+
 
 
 # print(findGroupsdfs(0, 1))
