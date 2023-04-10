@@ -17,10 +17,13 @@ dy = [0, 0, 0, -1, 1]
 
 
 def move(micros):
+    temp = []
     for m in micros:
         x, y, c, d = m
-        # nx, ny, nc, nd = 0, 0, 0, 0
-        if x == 1 or x == N - 2 or y == 1 or y == N - 2:  ##끝으로 이동할 때
+        nx, ny, nc, nd = x, y, c, d
+        # print(x, y, c, d)
+        if (x == 1 and d == 1) or (x == N - 2 and d == 2) or (y == 1 and d == 3) or (
+                y == N - 2 and d == 4):  ##끝으로 이동할 때
             nx = x + dx[d]
             ny = y + dy[d]
             if d == 1:
@@ -35,15 +38,21 @@ def move(micros):
                 nc = 0
             else:
 
-                nc = c / 2
-            maps[x][y].remove((c, d))
-            maps[nx][ny].append((nc, nd))
-
+                nc = c // 2
+            # maps[x][y].remove((c, d))
+            # maps[nx][ny].append((nc, nd))
         else:
             nx = x + dx[d]
             ny = y + dy[d]
-            maps[x][y].remove((c, d))
-            maps[nx][ny].append((nc, d))
+
+            # maps[x][y].remove((c, d))
+            # maps[nx][ny].append((nc, d))
+        # print(nx, ny, nc, nd)
+        temp.append((nx, ny, nc, nd))
+        # micros.remove((x, y, c, d))
+        # micros.append((nx, ny, nc, nd))
+        # print(nx,ny,nc,nd)
+    return temp
 
 
 T = int(input())
@@ -52,12 +61,13 @@ for tc in range(T):
 
     N, M, K = map(int, input().split())  # N 셀의 갯수 , M 격리 시간 ,K 미생물의 갯수
     maps = [[[]] * N for _ in range(N)]
-    print(maps)
+
     micro = []
     for i in range(K):
         x, y, c, d = map(int, input().split())
         micro.append((x, y, c, d))
-        maps[x][y].append((c, d))
-        print(maps)
-        move(micro)
-        print(maps)
+        # maps[x][y].append((c, d))
+
+    print(micro)
+    micro = move(micro)
+    print(micro)
