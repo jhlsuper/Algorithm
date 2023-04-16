@@ -1,11 +1,16 @@
 # 앞쪽의 병사는  뒤쪽에 있는 병사 보다 높아야된다.
 
 N = int(input())
-dp = [0] * (N + 1)
-answer = 0
-li = (input().split())
-index = 0
-for i in range(N):
-    index = N - 1 - i
-    print(li[index])
 
+answer = 0
+li = [int(i) for i in input().split()]
+
+dp = [1] * N
+
+for i in range(N):
+    for j in range(i):
+        print(dp)
+        if li[i] < li[j]:
+            dp[i] = max(dp[i], dp[j] + 1)
+
+print(len(li)-max(dp))

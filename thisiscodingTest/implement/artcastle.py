@@ -24,9 +24,28 @@ groupsIndex = []  ## 그룹이 어떤 숫자로 이루어져있는지 넣어주�
 n = int(input())
 maps = [list(map(int, input().split())) for _ in range(n)]
 answer = 0
+half = n // 2
+
+
+def pRotate():
+    for i in range(n):
+        for j in range(n):
+            if i == half:
+                arr[i][j] = maps[j][i]
+            if j == half:
+                arr[i][j] = maps[n - j - 1][n - i - 1]
+
+
+def sRotate(x, y, l):
+    for i in range(x, x + l):
+        for j in range(y, y + l):
+            nx, ny = i - x, j - y
+            rx, ry = ny, l - nx - 1
+            arr[rx + x][ry + y] = maps[i][j]
 
 
 def findGroups():
+    # groups = []
     global visited
     visited = [[0] * n for _ in range(n)]
     for i in range(n):
@@ -87,22 +106,32 @@ def getScore():
                 if 0 <= nx < n and 0 <= ny < n:
                     if (nx, ny) in cGroup:
                         count += 1
-        print(sGroup, cGroup, count)
+        # print(sGroup, cGroup, count)
         score += (fiLen + secLen) * groupsIndex[fiIndex] * groupsIndex[secIndex] * count
     return score
 
 
-def rotate():
-    ## 돌리기 로직
-    ##사각형 좌표값들 찾기
-    mid = (n + 1) / 2 - 1
-    temp = []
-    for i in range(mid):
-        temp.append((i, mid))
-
-
-
-# print(findGroupsdfs(0, 1))
 findGroups()
 # print(groups, groupsIndex)
 print(getScore())
+print(maps)
+answer += getScore()
+for t in range(3):
+    arr = [[0] * n for _ in range(n)]
+    pRotate()
+    # print(arr)
+    sRotate(0, 0, half)
+    sRotate(0, half + 1, half)
+    sRotate(half + 1, 0, half)
+    sRotate(half + 1, half + 1, half)
+
+    for i in range(n):
+        for j in range(n):
+            maps[i][j] = arr[i][j]
+    # print(maps)
+    groups = []
+    findGroups()
+    # print(groups)
+    # print(getScore())
+    answer += getScore()
+print(answer)
